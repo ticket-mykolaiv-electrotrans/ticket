@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             background: #dbe4f4;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,31 +21,39 @@
         .card {
             width: 330px;
             background: white;
-            border-radius: 20px 20px 0 0;
+            border-radius: 24px 24px 0 0;
             position: relative;
             text-align: center;
-            padding: 20px 0 30px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 25px 0 35px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
 
-        .title { font-size: 14px; color: #333; margin-bottom: 5px; }
-        .date { font-size: 12px; color: #8a8a8a; margin-bottom: 15px; }
-        .ticket { font-size: 34px; font-weight: 700; margin-bottom: 15px; color: #000; letter-spacing: -0.5px; }
+        .title { font-size: 14.5px; color: #444; margin-bottom: 6px; font-weight: 400; }
+        .date { font-size: 13px; color: #8e8e93; margin-bottom: 18px; }
+        
+        /* ИСПРАВЛЕННЫЙ РАЗМЕР "1 КВИТОК" */
+        .ticket { 
+            font-size: 42px; 
+            font-weight: 800; 
+            margin-bottom: 18px; 
+            color: #000; 
+            letter-spacing: -1px;
+        }
 
         .timer {
             display: inline-flex;
             align-items: center;
-            background: linear-gradient(90deg, #dcfce7, #dbeafe);
-            padding: 8px 18px;
+            background: linear-gradient(90deg, #e3f9e5, #e1effe);
+            padding: 9px 20px;
             border-radius: 25px;
-            font-size: 15px;
+            font-size: 15.5px;
             font-weight: 600;
-            color: #1a1a1a;
+            color: #1c1c1e;
         }
 
         .divider-line {
-            margin: 30px 0;
-            border-top: 2px dashed #f1f5f9;
+            margin: 35px 0;
+            border-top: 2px dashed #f2f2f7;
             position: relative;
         }
         .divider-line::before, .divider-line::after {
@@ -55,29 +63,32 @@
         .divider-line::before { left: -11px; }
         .divider-line::after { right: -11px; }
 
-        /* ИСПРАВЛЕННЫЙ БЛОК QR-КОДА */
+        /* КОНТЕЙНЕР ДЛЯ QR */
         .qr-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0 auto;
             background: white;
-            padding: 12px;
-            border-radius: 15px;
-            /* Фиксируем размер контейнера, чтобы он не "плыл" */
-            width: 160px; 
-            height: 160px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.02);
+            padding: 10px;
+            border-radius: 12px;
+            width: 170px;
+            height: 170px;
         }
 
-        /* Заставляем само изображение QR быть строго квадратным */
-        #qrcode img {
-            width: 160px !important;
-            height: 160px !important;
+        /* Чтобы QR не сплющивало */
+        #qrcode canvas, #qrcode img {
+            width: 170px !important;
+            height: 170px !important;
             display: block;
         }
 
-        .number { font-size: 13px; color: #94a3b8; margin-top: 15px; }
+        .number { 
+            font-size: 14px; 
+            color: #8e8e93; 
+            margin-top: 18px; 
+            font-weight: 400;
+        }
 
         .waves {
             position: absolute;
@@ -91,7 +102,7 @@
         }
 
         @media (max-width: 480px) {
-            body { align-items: center; padding: 0; }
+            body { align-items: center; }
         }
     </style>
 </head>
@@ -133,21 +144,22 @@
     }
     setInterval(updateTimer, 1000);
 
-    // 2. Текущая дата
+    // 2. Дата (текущая)
     const now = new Date();
     const months = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня'];
     document.getElementById('dateText').innerText = `${now.getDate()} ${months[now.getMonth()]} о ${now.getHours()}:${now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()}`;
 
-    // 3. РАНДОМНЫЙ НОМЕР И КВАРКОД
+    // 3. Генерация номера и QR
     function generateTicket() {
-        const randomNum = Math.floor(Math.random() * (999999 - 300000 + 1)) + 300000;
-        document.getElementById("ticketNumber").innerText = "0" + Math.floor(Math.random() * 90000 + 10000); // 6-значный номер как на фото
+        // Рандомный 6-значный номер
+        const randomNum = Math.floor(100000 + Math.random() * 900000);
+        document.getElementById("ticketNumber").innerText = randomNum;
 
         document.getElementById("qrcode").innerHTML = "";
         new QRCode(document.getElementById("qrcode"), {
-            text: "https://privatbank.ua/qr/" + randomNum, // Имитируем реальную ссылку внутри
-            width: 160,
-            height: 160,
+            text: "https://ticket" + randomNum,
+            width: 170,
+            height: 170,
             colorDark : "#000000",
             colorLight : "#ffffff",
             correctLevel : QRCode.CorrectLevel.M
