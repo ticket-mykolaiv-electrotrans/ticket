@@ -9,7 +9,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: #dbe4f4; /* Светло-голубой фон */
+            background: #dbe4f4;
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
             display: flex;
             justify-content: center;
@@ -43,9 +43,6 @@
             color: #1a1a1a;
         }
 
-        .timer span { margin-left: 5px; }
-
-        /* Разделительная линия с боковыми вырезами */
         .divider-line {
             margin: 30px 0;
             border-top: 2px dashed #f1f5f9;
@@ -58,12 +55,10 @@
         .divider-line::before { left: -11px; }
         .divider-line::after { right: -11px; }
 
-        /* Стили для QR-кода */
         .qr-wrapper {
             display: flex;
             justify-content: center;
             margin: 0 auto;
-            /* Белый фон и скругление как на твоем фото-примере */
             background: white;
             padding: 10px;
             border-radius: 15px;
@@ -71,15 +66,8 @@
             height: 180px;
         }
 
-        /* Центрируем сам холст QR-кода внутри обертки */
-        #qrcode img, #qrcode canvas {
-            display: block;
-            margin: 0 auto;
-        }
-
         .number { font-size: 13px; color: #94a3b8; margin-top: 15px; }
 
-        /* Маленькие и аккуратные волны снизу */
         .waves {
             position: absolute;
             bottom: -1px;
@@ -115,13 +103,13 @@
         <div id="qrcode"></div>
     </div>
 
-    <div class="number">Номер: <span id="ticketNumber">332919</span></div>
+    <div class="number">Номер: <span id="ticketNumber"></span></div>
 
     <div class="waves"></div>
 </div>
 
 <script>
-    // 1. Логика таймера на 90 минут (5400 секунд)
+    // 1. Таймер на 90 минут
     let totalSeconds = 5400; 
     const timeElement = document.getElementById('time');
 
@@ -129,47 +117,37 @@
         let hours = Math.floor(totalSeconds / 3600);
         let minutes = Math.floor((totalSeconds % 3600) / 60);
         let seconds = totalSeconds % 60;
-
-        let displayMinutes = minutes < 10 ? '0' + minutes : minutes;
-        let displaySeconds = seconds < 10 ? '0' + seconds : seconds;
-
-        timeElement.innerText = `${hours}:${displayMinutes}:${displaySeconds}`;
-
-        if (totalSeconds > 0) {
-            totalSeconds--;
-        } else {
-            clearInterval(timerInterval);
-            timeElement.innerText = "0:00:00";
-        }
+        timeElement.innerText = `${hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+        if (totalSeconds > 0) totalSeconds--;
     }
-    const timerInterval = setInterval(updateTimer, 1000);
+    setInterval(updateTimer, 1000);
 
-    // 2. Установка текущей даты
+    // 2. Текущая дата
     const now = new Date();
     const months = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня'];
     document.getElementById('dateText').innerText = `${now.getDate()} ${months[now.getMonth()]} о ${now.getHours()}:${now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()}`;
 
-    // 3. Генерация НАСТОЯЩЕГО РАНДОМНОГО QR-кода
-    function generateRealQR() {
-        // Генерируем случайное длинное число для начинки кода
-        const randomData = Math.floor(Math.random() * 1000000000).toString();
+    // 3. РАНДОМНЫЙ НОМЕР И КВАРКОД
+    function generateTicket() {
+        // Генерируем случайное число от 300000 до 999999
+        const randomNum = Math.floor(Math.random() * (999999 - 300000 + 1)) + 300000;
         
-        // Очищаем контейнер перед генерацией
-        document.getElementById("qrcode").innerHTML = "";
+        // Ставим число в текст под QR-кодом
+        document.getElementById("ticketNumber").innerText = randomNum;
 
-        // Используем библиотеку QRCode.js
+        // Генерируем QR-код с этим же числом
+        document.getElementById("qrcode").innerHTML = "";
         new QRCode(document.getElementById("qrcode"), {
-            text: randomData,    // Данные, которые зашиты
-            width: 180,           // Ширина
-            height: 180,          // Высота
-            colorDark : "#000000",// Цвет кода
-            colorLight : "#ffffff",// Цвет фона
-            correctLevel : QRCode.CorrectLevel.H // Высокий уровень коррекции ошибок
+            text: randomNum.toString(),
+            width: 180,
+            height: 180,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.M
         });
     }
 
-    // Запускаем генерацию при загрузке страницы
-    generateRealQR();
+    generateTicket();
 </script>
 
 </body>
