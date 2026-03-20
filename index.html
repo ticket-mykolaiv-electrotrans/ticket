@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Приват24 Квиток</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         body {
             margin: 0;
             padding: 0;
             background: #dbe4f4;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -30,141 +31,170 @@
             margin-bottom: -32.5px;
             z-index: 10;
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            overflow: hidden;
         }
 
         .logo-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 50%;
         }
 
         .card {
-            width: 330px;
+            width: 335px;
             background: white;
-            border-radius: 24px;
+            border-radius: 28px 28px 0 0;
             position: relative;
             text-align: center;
-            padding: 45px 0 25px 0;
+            padding: 0 0 5px 0;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
 
-        .title { font-size: 14.5px; color: #333; margin-top: 10px; font-weight: 400; }
-        .date { font-size: 12.5px; color: #8a8a8a; margin-bottom: 12px; }
+        .marquee-bar {
+            background: linear-gradient(90deg, #e9f5ee, #eaf2f9);
+            padding: 10px 0;
+            margin: 45px 15px 10px 15px; 
+            border-radius: 25px; 
+            overflow: hidden;
+            display: flex;
+        }
+
+        .marquee-content {
+            display: flex;
+            white-space: nowrap;
+            animation: scroll-text 35s linear infinite;
+        }
+
+        .marquee-text {
+            color: #1a8a8a; 
+            font-size: 14px;
+            font-weight: 500;
+            padding-right: 60px;
+        }
+
+        @keyframes scroll-text {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .title { font-size: 15px; color: #333; margin-top: 8px; font-weight: 500; }
         
-        .thin-line {
-            width: 90%;
+        .text-divider {
+            width: 85%;
             height: 1px;
             background-color: #f1f5f9;
-            margin: 0 auto;
+            margin: 10px auto;
         }
 
+        .date { font-size: 13px; color: #8a8a8a; margin-bottom: 12px; }
+        
         .ticket { 
-            font-size: 34px; 
+            font-size: 38px; 
             font-weight: 700; 
-            margin-top: 15px;
-            margin-bottom: 15px; 
-            color: #000; 
-            letter-spacing: -0.5px; 
+            margin: 12px 0; 
+            color: #000;
+            letter-spacing: -0.5px;
         }
 
-        .timer {
+        .timer-btn {
             display: inline-flex;
             align-items: center;
-            background: linear-gradient(90deg, #dcfce7, #dbeafe);
-            padding: 8px 18px;
+            background: linear-gradient(90deg, #e9f5ee, #eaf2f9);
+            padding: 10px 22px;
             border-radius: 25px;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
             color: #1a1a1a;
-            margin-top: 15px;
             margin-bottom: 25px;
+        }
+
+        /* ТА САМА КРАПКА (КОЛО) ЯК НА ФОТО */
+        .status-circle {
+            width: 10px;
+            height: 10px;
+            border: 2px solid #a8d5ba; /* Світло-зелений контур */
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            background: transparent;
         }
 
         .divider-container {
             position: relative;
             width: 100%;
-            height: 22px;
+            height: 24px;
             display: flex;
             align-items: center;
-            margin: 10px 0;
         }
-
-        .divider-line-solid {
+        .divider-line {
             width: 100%;
             height: 1px;
-            background-color: #f1f5f9;
+            border-top: 1px dashed #e2e8f0;
         }
-
         .circle-cut {
             position: absolute;
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             background: #dbe4f4; 
             border-radius: 50%;
-            top: 0;
         }
-        .left-cut { left: -11px; }
-        .right-cut { right: -11px; }
+        .left-cut { left: -12px; }
+        .right-cut { right: -12px; }
 
         .qr-wrapper {
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 15px auto 0 auto;
+            margin: 20px auto;
             background: white;
-            padding: 10px;
-            border-radius: 20px; 
-            width: 170px;
-            height: 170px;
-        }
-
-        #qrcode {
-            border-radius: 15px;
-            overflow: hidden;
+            width: 180px;
+            height: 180px;
         }
 
         .qr-cat-logo {
             position: absolute;
-            width: 48px; 
-            height: 48px; 
+            width: 46px; 
+            height: 46px; 
             background: white;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 5;
-            border-radius: 8px;
         }
 
         .qr-cat-logo svg {
-            width: 42px; 
-            height: 42px; 
-            fill: #000;
-        }
-
-        #qrcode canvas, #qrcode img {
-            width: 170px !important;
-            height: 170px !important;
-            display: block;
+            width: 38px; 
+            height: 38px; 
+            fill: #d1d5db; 
         }
 
         .number { 
-            font-size: 13.5px; 
+            font-size: 15px; 
             color: #94a3b8; 
-            margin-top: 15px; 
-            font-weight: 400;
+            margin-bottom: 35px;
         }
 
-        .waves {
+        .waves-container {
             position: absolute;
-            bottom: -1px;
+            bottom: -15px;
             left: 0;
             width: 100%;
-            height: 10px;
-            background-image: radial-gradient(circle at 8px 12px, #dbe4f4 6px, transparent 7px);
-            background-size: 16px 14px;
+            height: 16px;
+            background-image: radial-gradient(circle at 10px 0px, white 12px, transparent 13px);
+            background-size: 20px 20px;
             background-repeat: repeat-x;
+        }
+
+        .card-bottom-fix {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: white;
+            border-radius: 0 0 28px 28px;
+            z-index: -1;
         }
     </style>
 </head>
@@ -175,20 +205,28 @@
 </div>
 
 <div class="card">
+    <div class="marquee-bar">
+        <div class="marquee-content">
+            <div class="marquee-text">Найголовніше — залишайтеся людьми і кричіть, що ви живі. Я живий! ⬥ Життя — цікаве, і мотивація то є сильна: філософія, психологія.</div>
+            <div class="marquee-text">Найголовніше — залишайтеся людьми і кричіть, що ви живі. Я живий! ⬥ Життя — цікаве, і мотивація то є сильна: філософія, психологія.</div>
+        </div>
+    </div>
+
     <div class="title" id="mainTitle">Миколаївелектротранс Трамвай</div>
+    
+    <div class="text-divider"></div> 
+
     <div class="date">Придбано <span id="dateText"></span></div>
     
-    <div class="thin-line"></div> 
-
     <div class="ticket">1 квиток</div>
     
-    <div class="timer">
-        ● Квиток дійсний — <span id="time">1:30:00</span>
+    <div class="timer-btn">
+        <span class="status-circle"></span> Квиток дійсний — <span id="time">1:30:00</span>
     </div>
 
     <div class="divider-container">
         <div class="circle-cut left-cut"></div>
-        <div class="divider-line-solid"></div>
+        <div class="divider-line"></div>
         <div class="circle-cut right-cut"></div>
     </div>
 
@@ -203,7 +241,8 @@
 
     <div class="number">Номер: <span id="ticketNumber"></span></div>
 
-    <div class="waves"></div>
+    <div class="card-bottom-fix"></div>
+    <div class="waves-container"></div>
 </div>
 
 <script>
@@ -219,28 +258,26 @@
     setInterval(updateTimer, 1000);
 
     const now = new Date();
-    const months = ['березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня', 'січня', 'лютого'];
+    const months = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня'];
     document.getElementById('dateText').innerText = `${now.getDate()} ${months[now.getMonth()]} о ${now.getHours()}:${now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()}`;
 
-    function generateTicket() {
-        const transportType = Math.random() < 0.5 ? '(трамвай)' : '(тролейбус)';
-        document.getElementById("mainTitle").innerText = `Миколаївелектротранс ${transportType}`;
-
+    function initTicket() {
+        const transport = Math.random() < 0.5 ? 'Трамвай' : 'Тролейбус';
+        document.getElementById("mainTitle").innerText = `Миколаївелектротранс ${transport}`;
         const randomNum = Math.floor(100000 + Math.random() * 900000);
         document.getElementById("ticketNumber").innerText = randomNum;
 
         document.getElementById("qrcode").innerHTML = "";
         new QRCode(document.getElementById("qrcode"), {
-            text: "https://qr.privatbank.ua/ticket/" + randomNum + Date.now(),
-            width: 170,
-            height: 170,
-            colorDark : "#000000",
+            text: "https://qr.privatbank.ua/" + randomNum + Date.now(),
+            width: 180,
+            height: 180,
+            colorDark : "#a1a1a1",
             colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.H
+            correctLevel : QRCode.CorrectLevel.M
         });
     }
-
-    generateTicket();
+    initTicket();
 </script>
 
 </body>
