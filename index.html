@@ -11,41 +11,42 @@
         
         body {
             margin: 0; padding: 0;
-            background-color: #dbe4f4;
+            background-color: #dbe4f4; /* Колір фону */
             font-family: 'Inter', sans-serif;
-            display: flex; justify-content: center; align-items: flex-start;
+            display: flex; justify-content: center;
             min-height: 100vh;
-            padding: 40px 14px 20px 14px; /* Збільшив верхній відступ для лого */
+            /* Створюємо помітні широкі лінії фону по боках */
+            padding: 45px 18px 20px 18px; 
         }
 
-        /* Головний контейнер, який тримає все разом */
         .wrapper {
             width: 100%;
-            max-width: 340px;
+            max-width: 400px; /* Трохи ширше для великих екранів */
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
         }
 
+        /* Логотип чітко по центру */
         .logo-top {
-            width: 62px; height: 62px;
+            width: 68px; height: 68px;
             background: white; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             position: absolute;
-            top: -31px; /* Рівно половина логотипа виглядає зверху */
+            top: -34px;
             z-index: 10;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .logo-top img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
         .card {
             width: 100%;
             background: white;
-            border-radius: 24px;
+            border-radius: 28px;
             display: flex; flex-direction: column; align-items: center;
-            padding-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            padding-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.07);
             overflow: hidden;
             position: relative;
         }
@@ -54,9 +55,9 @@
         .marquee-container {
             background: linear-gradient(90deg, #eff8f2, #f0f6fb);
             width: calc(100% - 40px);
-            height: 28px;
-            margin: 45px 0 12px 0; /* Відступ від верху картки, де лого */
-            border-radius: 14px;
+            height: 32px;
+            margin: 48px 0 15px 0;
+            border-radius: 16px;
             overflow: hidden;
             display: flex; align-items: center;
         }
@@ -65,56 +66,56 @@
             animation: slide-left 35s linear infinite;
         }
         .marquee-text-flow span {
-            color: #1a8a8a; font-size: 11.5px; font-weight: 500;
-            padding-right: 50px;
+            color: #1a8a8a; font-size: 13px; font-weight: 500;
+            padding-right: 60px;
         }
         @keyframes slide-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        .info-title { font-size: 14px; color: #333; font-weight: 500; margin-top: 2px; }
-        .separator { width: 88%; height: 1px; background: #f1f5f9; margin: 10px 0; }
-        .info-date { font-size: 11.5px; color: #8a8a8a; margin-bottom: 4px; }
-        .info-count { font-size: 26px; font-weight: 700; color: #000; margin: 2px 0; }
+        .info-title { font-size: 16px; color: #1a1a1a; font-weight: 600; margin-top: 5px; }
+        .separator { width: 90%; height: 1px; background: #f1f5f9; margin: 12px 0; }
+        .info-date { font-size: 13px; color: #8a8a8a; margin-bottom: 6px; }
+        .info-count { font-size: 32px; font-weight: 800; color: #000; margin: 5px 0; }
 
         .valid-badge {
             display: inline-flex; align-items: center;
             background: #f1f7f4;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 13px; font-weight: 600;
-            margin: 8px 0 15px 0;
+            padding: 8px 20px;
+            border-radius: 24px;
+            font-size: 15px; font-weight: 600;
+            margin: 10px 0 20px 0;
         }
-        .valid-dot { width: 7px; height: 7px; border: 2px solid #a8d5ba; border-radius: 50%; margin-right: 8px; }
+        .valid-dot { width: 9px; height: 9px; border: 2px solid #a8d5ba; border-radius: 50%; margin-right: 10px; }
 
-        /* Лінія розрізу */
+        /* Пунктирна лінія з вирізами */
         .tear-line {
-            position: relative; width: 100%; height: 20px;
-            display: flex; align-items: center; margin: 5px 0;
+            position: relative; width: 100%; height: 30px;
+            display: flex; align-items: center; margin: 10px 0;
         }
-        .dashed-line { width: 100%; border-top: 1px dashed #e2e8f0; }
-        .side-cut { position: absolute; width: 20px; height: 20px; background: #dbe4f4; border-radius: 50%; }
-        .left-cut { left: -10px; }
-        .right-cut { right: -10px; }
+        .dashed-line { width: 100%; border-top: 1.5px dashed #e2e8f0; }
+        .side-cut { position: absolute; width: 30px; height: 30px; background: #dbe4f4; border-radius: 50%; }
+        .left-cut { left: -15px; }
+        .right-cut { right: -15px; }
 
         /* QR Секція */
         .qr-section {
             position: relative;
-            width: 170px; height: 170px;
-            margin-top: 15px;
+            width: 190px; height: 190px;
+            margin-top: 20px;
         }
         .qr-center-logo {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 40px; height: 40px; background: white;
+            width: 46px; height: 46px; background: white;
             display: flex; align-items: center; justify-content: center; z-index: 2;
         }
-        .qr-center-logo svg { width: 30px; height: 30px; fill: #000; }
+        .qr-center-logo svg { width: 36px; height: 36px; fill: #000; }
 
-        .ticket-num { font-size: 12.5px; color: #94a3b8; margin-top: 18px; }
+        .ticket-num { font-size: 14px; color: #94a3b8; margin-top: 25px; }
 
-        /* Хвилястий край */
+        /* Хвилі знизу */
         .wave-bottom {
-            position: absolute; bottom: -8px; left: 0; width: 100%; height: 12px;
-            background-image: radial-gradient(circle at 7px 0px, white 9px, transparent 10px);
-            background-size: 14px 14px; background-repeat: repeat-x;
+            position: absolute; bottom: -10px; left: 0; width: 100%; height: 16px;
+            background-image: radial-gradient(circle at 9px 0px, white 11px, transparent 12px);
+            background-size: 18px 18px; background-repeat: repeat-x;
         }
     </style>
 </head>
@@ -184,9 +185,10 @@
         const ticketID = Math.floor(100000 + Math.random() * 900000);
         document.getElementById('display-num').textContent = ticketID;
 
+        // QR код став більшим (190px)
         new QRCode(document.getElementById("qrcode"), {
             text: "https://qr.privatbank.ua/" + ticketID,
-            width: 170, height: 170
+            width: 190, height: 190
         });
 
         startTimer();
