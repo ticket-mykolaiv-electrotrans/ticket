@@ -17,6 +17,7 @@
             min-height: 100vh;
         }
 
+        /* --- ЕКРАН НАЛАШТУВАННЯ --- */
         #setup-screen {
             width: 100%;
             max-width: 400px;
@@ -25,6 +26,8 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            position: relative;
+            z-index: 2;
         }
 
         .setup-logo { width: 80px; height: 80px; margin-bottom: 20px; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -37,6 +40,8 @@
             padding: 25px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             margin-bottom: 20px;
+            position: relative;
+            z-index: 3;
         }
 
         .label { font-size: 14px; color: #8a8a8a; margin-bottom: 15px; font-weight: 500; display: block; }
@@ -63,79 +68,114 @@
             width: 100%; background: #000; color: white; border: none;
             padding: 16px; border-radius: 16px; font-size: 16px; font-weight: 700;
             cursor: pointer; margin-top: 10px;
+            position: relative; z-index: 3;
         }
 
+        .tg-link { margin-top: 30px; font-size: 13px; color: #1a8a8a; text-decoration: none; font-weight: 500; position: relative; z-index: 3; }
+
+        /* --- PEPE EASTER EGG --- */
+        #pepe-container {
+            position: fixed;
+            bottom: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            height: 50vh;
+            z-index: 1;
+            display: none;
+            transition: bottom 1s ease-out, transform 1s ease-out, height 1s ease-out;
+        }
+        #pepe-img { height: 100%; width: auto; object-fit: contain; }
+        #pepe-container.moving { bottom: auto; left: auto; transform: none; width: 80px; height: auto; transition: all 0.5s ease-in-out; }
+        #pepe-container.moving #pepe-img { width: 100%; height: auto; }
+
         /* --- ЕКРАН КВИТКА --- */
-        #ticket-screen { display: none; padding: 45px 18px 20px 18px; width: 100%; max-width: 400px; flex-direction: column; align-items: center; position: relative; }
+        #ticket-screen { display: none; padding: 45px 18px 20px 18px; width: 100%; max-width: 400px; flex-direction: column; align-items: center; position: relative; z-index: 5; }
         .wrapper { width: 100%; position: relative; display: flex; flex-direction: column; align-items: center; }
+        
         .logo-top { width: 68px; height: 68px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: absolute; top: -34px; z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .logo-top img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
         
-        .card { width: 100%; background: white; border-radius: 28px; display: flex; flex-direction: column; align-items: center; padding-bottom: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.07); overflow: hidden; position: relative; }
+        .card { width: 100%; background: #ffffff; border-radius: 28px; display: flex; flex-direction: column; align-items: center; padding-bottom: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.07); overflow: hidden; position: relative; }
         
-        .marquee-container { background: linear-gradient(90deg, #eff8f2, #f0f6fb); width: calc(100% - 40px); height: 32px; margin: 48px 0 15px 0; border-radius: 16px; overflow: hidden; display: flex; align-items: center; }
+        .marquee-container { background: #eff8f2; width: 100%; height: 32px; margin: 48px 0 0 0; overflow: hidden; display: flex; align-items: center; }
         .marquee-text-flow { display: flex; white-space: nowrap; animation: slide-left 35s linear infinite; }
         .marquee-text-flow span { color: #1a8a8a; font-size: 13px; font-weight: 500; padding-right: 60px; }
         @keyframes slide-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-        .info-title { font-size: 16px; color: #1a1a1a; font-weight: 600; margin-top: 5px; }
-        .separator { width: 90%; height: 1px; background: #f1f5f9; margin: 12px 0; }
-        .info-date { font-size: 13px; color: #8a8a8a; margin-bottom: 6px; }
         
-        /* КІЛЬКІСТЬ КВИТКІВ — Вага 600 */
-        .info-count { font-size: 32px; font-weight: 600; color: #000; margin: 5px 0; }
+        .info-title { font-size: 16px; color: #1a1a1a; font-weight: 600; margin-top: 26px; }
+        .separator { width: 33%; height: 1px; background: #e2e8f0; margin: 18px 0; }
+        .info-date { font-size: 14px; color: #7f8c8d; margin-bottom: 14px; font-weight: 400; }
+        .info-count { font-size: 34px; font-weight: 600; color: #000; margin: 0 0 16px 0; }
         
-        /* ПЛАШКА ЧАСУ — Вага 500 */
-        .valid-badge { 
-            display: inline-flex; 
-            align-items: center; 
-            background: #f1f7f4; 
-            padding: 8px 20px; 
-            border-radius: 24px; 
-            font-size: 15px; 
-            font-weight: 500; 
-            margin: 10px 0 20px 0; 
-            transition: all 0.4s ease;
+        .valid-badge { display: inline-flex; align-items: center; background: linear-gradient(135deg, #e3f6ec 0%, #e8f3f9 100%); padding: 10px 24px; border-radius: 24px; font-size: 15px; font-weight: 600; margin: 0 0 24px 0; transition: background 0.5s, color 0.5s; }
+        .valid-dot { width: 9px; height: 9px; border: 2px solid #a8d5ba; border-radius: 50%; margin-right: 10px; transition: border-color 0.5s; }
+        
+        /* ПОПРАВКА: Линия строго как на скриншоте (крупнее штрих, меньше количество, больше отступы) */
+        .tear-line { position: relative; width: 100%; height: 20px; display: flex; align-items: center; margin: 0 0 12px 0; }
+        .dashed-line { 
+            width: 100%; 
+            height: 2px;
+            background-image: linear-gradient(to right, #e2e8f0 50%, rgba(255,255,255,0) 50%);
+            background-position: bottom;
+            background-size: 24px 2px; /* Увеличен размер шага для уменьшения количества полосок */
+            background-repeat: repeat-x;
         }
-        .valid-dot { width: 9px; height: 9px; border: 2px solid #a8d5ba; border-radius: 50%; margin-right: 10px; }
-
-        .tear-line { position: relative; width: 100%; height: 30px; display: flex; align-items: center; margin: 10px 0; }
-        .dashed-line { width: 100%; border-top: 1.5px dashed #e2e8f0; }
-        .side-cut { position: absolute; width: 30px; height: 30px; background: #dbe4f4; border-radius: 50%; }
-        .left-cut { left: -15px; } .right-cut { right: -15px; }
-
-        .qr-section { position: relative; width: 190px; height: 190px; margin-top: 20px; }
-        .qr-center-logo { 
-            position: absolute; 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            width: 48px; 
-            height: 48px; 
-            background: white; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            z-index: 2; 
-            border-radius: 8px;
+        .side-cut { position: absolute; width: 24px; height: 24px; background: transparent; border-radius: 50%; }
+        .left-cut { left: -12px; background: #dbe4f4; } 
+        .right-cut { right: -12px; background: #dbe4f4; }
+        
+        .qr-card-container {
+            background: #ffffff;
+            padding: 14px;
+            border-radius: 22px;
+            border: 1px solid #f0f3f8;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .qr-center-logo img { width: 38px; height: 38px; object-fit: contain; }
 
-        .ticket-num { font-size: 14px; color: #94a3b8; margin-top: 25px; }
-        .wave-bottom { position: absolute; bottom: -10px; left: 0; width: 100%; height: 16px; background-image: radial-gradient(circle at 9px 0px, white 11px, transparent 12px); background-size: 18px 18px; background-repeat: repeat-x; }
+        .qr-section { position: relative; width: 190px; height: 190px; }
+        
+        .qr-center-logo { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 42px; height: 42px; background: white; display: flex; align-items: center; justify-content: center; z-index: 2; border-radius: 4px; }
+        .qr-center-logo img { width: 32px; height: 32px; object-fit: contain; }
+        
+        .ticket-num { font-size: 14px; color: #8a8a8a; font-weight: 500; margin-top: 25px; }
+        .ticket-num-digits { color: #000000; font-weight: 600; }
+        
+        .wave-bottom { position: absolute; bottom: -10px; left: 0; width: 100%; height: 16px; background-image: radial-gradient(circle at 9px 0px, #ffffff 11px, transparent 12px); background-size: 18px 18px; background-repeat: repeat-x; }
+
+        .browser-history-note {
+            margin-top: 28px;
+            font-size: 13px;
+            color: #55627a;
+            text-align: center;
+            font-weight: 500;
+            line-height: 1.5;
+            padding: 0 10px;
+            max-width: 320px;
+        }
     </style>
 </head>
-<body>
+<body id="main-body">
+
+    <div id="pepe-container">
+        <img src="pepe.png" id="pepe-img" alt="Pepe">
+    </div>
 
     <div id="setup-screen">
         <img src="https://i.postimg.cc/QHkcrrrM/image.png" class="setup-logo">
         <div class="setup-title">Налаштування Білета</div>
+        
         <div class="config-box">
             <span class="label">Оберіть вид транспорту</span>
             <div class="transport-selector">
                 <button class="t-btn active" onclick="selectTransport('Трамвай', this)">Трамвай</button>
                 <button class="t-btn" onclick="selectTransport('Тролейбус', this)">Тролейбус</button>
             </div>
+
             <span class="label">Кількість квитків</span>
             <div class="counter-row">
                 <button class="count-btn" onclick="changeCount(-1)">–</button>
@@ -143,14 +183,14 @@
                 <button class="count-btn" onclick="changeCount(1)">+</button>
             </div>
         </div>
+
         <button class="start-btn" onclick="generateTicket()">Продовжити</button>
+        <a href="https://t.me/+n_6e8sSttyliNzEy" class="tg-link">ТГ-канал проекту</a>
     </div>
 
     <div id="ticket-screen">
         <div class="wrapper">
-            <div class="logo-top">
-                <img src="https://i.postimg.cc/QHkcrrrM/image.png" alt="Logo">
-            </div>
+            <div class="logo-top"><img src="https://i.postimg.cc/QHkcrrrM/image.png" alt="Logo"></div>
             <div class="card">
                 <div class="marquee-container">
                     <div class="marquee-text-flow">
@@ -163,31 +203,55 @@
                 <div class="info-date">Придбано <span id="display-date"></span></div>
                 <div class="info-count" id="display-count">1 квиток</div>
                 <div class="valid-badge" id="badge">
-                    <span class="valid-dot"></span> Квиток дійсний — <span id="display-timer">1:30:00</span>
+                    <span class="valid-dot" id="badge-dot"></span> Квиток дійсний — <span id="display-timer">1:30:00</span>
                 </div>
                 <div class="tear-line">
-                    <div class="side-cut left-cut"></div>
-                    <div class="dashed-line"></div>
-                    <div class="side-cut right-cut"></div>
+                    <div class="side-cut left-cut"></div><div class="dashed-line"></div><div class="side-cut right-cut"></div>
                 </div>
-                <div class="qr-section">
-                    <div id="qrcode"></div>
-                    <div class="qr-center-logo">
-                        <img src="https://cdn.phototourl.com/free/2026-04-11-366f303e-1248-46dc-ada4-6a9b37115a6a.jpg" alt="Cat">
+                
+                <div class="qr-card-container">
+                    <div class="qr-section">
+                        <div id="qrcode"></div>
+                        <div class="qr-center-logo">
+                            <img src="https://cdn.phototourl.com/free/2026-05-19-799b81a0-307f-497e-a54d-faf71e2717ea.jpg" alt="Cat Logo">
+                        </div>
                     </div>
                 </div>
-                <div class="ticket-num">Номер: <span id="display-num"></span></div>
+                
+                <div class="ticket-num">Номер: <span id="display-num" class="ticket-num-digits"></span></div>
                 <div class="wave-bottom"></div>
             </div>
+            <div class="browser-history-note">Ви зможете відкрити цю сторінку через історію браузера</div>
         </div>
     </div>
 
     <script>
-        // Инициализируем глобальную переменную сразу
-        window.timeLeft = 5400; 
         let currentTransport = 'Трамвай';
         let currentCount = 1;
-        let timerStarted = false;
+        let isSetupActive = true;
+        window.timeLeft = 5400;
+
+        let isStorageAvailable = false;
+        try {
+            localStorage.setItem('test_storage', '1');
+            localStorage.removeItem('test_storage');
+            isStorageAvailable = true;
+        } catch (e) {
+            isStorageAvailable = false;
+        }
+
+        if (isStorageAvailable && localStorage.getItem('ticket_end_time')) {
+            let endTime = parseInt(localStorage.getItem('ticket_end_time'));
+            let nowTime = Math.floor(Date.now() / 1000);
+            window.timeLeft = endTime - nowTime;
+            
+            if (window.timeLeft < 0) {
+                window.timeLeft = 0;
+                localStorage.removeItem('ticket_end_time');
+                localStorage.removeItem('ticket_buy_date');
+                localStorage.removeItem('ticket_random_id');
+            }
+        }
 
         function selectTransport(type, btn) {
             currentTransport = type;
@@ -204,68 +268,133 @@
         }
 
         function generateTicket() {
+            isSetupActive = false;
+            resetPepe();
             document.getElementById('setup-screen').style.display = 'none';
             document.getElementById('ticket-screen').style.display = 'flex';
             
             document.getElementById('display-transport').innerText = 'Миколаївелектротранс ' + currentTransport;
-            document.getElementById('display-count').innerText = currentCount === 1 ? "1 квиток" : currentCount < 5 ? currentCount + " квитки" : currentCount + " квитків";
+            document.getElementById('display-count').innerText = (currentCount === 1) ? "1 квиток" : (currentCount < 5 ? currentCount + " квитки" : currentCount + " квитків");
             
-            const now = new Date();
-            const months = ['січня','лютого','березня','квітня','травня','червня','липня','серпня','вересня','жовтня','листопада','грудня'];
-            document.getElementById('display-date').textContent = `${now.getDate()} ${months[now.getMonth()]} о ${now.getHours()}:${now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()}`;
+            let savedDate = isStorageAvailable ? localStorage.getItem('ticket_buy_date') : null;
+            if (!savedDate) {
+                const now = new Date();
+                const months = ['січня','лютого','березня','квітня','травня','червня','липня','серпня','вересня','жовтня','листопада','грудня'];
+                const minutesStr = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
+                savedDate = `${now.getDate()} ${months[now.getMonth()]} о ${now.getHours()}:${minutesStr}`;
+                if (isStorageAvailable) localStorage.setItem('ticket_buy_date', savedDate);
+            }
+            document.getElementById('display-date').textContent = savedDate;
 
-            const ticketID = Math.floor(100000 + Math.random() * 900000);
-            document.getElementById('display-num').textContent = ticketID;
+            let savedID = isStorageAvailable ? localStorage.getItem('ticket_random_id') : null;
+            if (!savedID) {
+                savedID = Math.floor(100000 + Math.random() * 900000).toString();
+                if (isStorageAvailable) localStorage.setItem('ticket_random_id', savedID);
+            }
+            
+            let formattedID = savedID.substring(0, 3) + " " + savedID.substring(3, 6);
+            document.getElementById('display-num').textContent = formattedID;
             
             document.getElementById("qrcode").innerHTML = "";
-            new QRCode(document.getElementById("qrcode"), {
-                text: "https://qr.privatbank.ua/" + ticketID,
-                width: 190, height: 190,
-                correctLevel: QRCode.CorrectLevel.H
-            });
+            new QRCode(document.getElementById("qrcode"), { text: "https://qr.privatbank.ua/" + savedID, width: 190, height: 190 });
 
-            // Запускаем цикл таймера только один раз
-            if (!timerStarted) {
-                runTimer();
-                timerStarted = true;
+            if (isStorageAvailable && !localStorage.getItem('ticket_end_time')) {
+                let endTime = Math.floor(Date.now() / 1000) + window.timeLeft;
+                localStorage.setItem('ticket_end_time', endTime.toString());
             }
+
+            startTimer();
         }
 
-        function runTimer() {
+        function startTimer() {
             const timerEl = document.getElementById('display-timer');
             const badge = document.getElementById('badge');
+            const badgeDot = document.getElementById('badge-dot');
 
-            // Главный цикл: выполняется каждую секунду
+            updateTimerUI(timerEl, badge, badgeDot);
+
             setInterval(() => {
-                // Если время вышло, просто показываем нули
                 if (window.timeLeft <= 0) {
                     timerEl.textContent = "0:00:00";
                     return;
                 }
-
-                // Уменьшаем глобальную переменную
                 window.timeLeft--;
-
-                // ПРОВЕРКА ЦВЕТА (каждую секунду читает актуальное значение window.timeLeft)
-                if (window.timeLeft <= 900) { // Красный (15 мин)
-                    badge.style.background = '#ff4d4d'; 
-                    badge.style.color = '#ffffff';
-                } else if (window.timeLeft <= 2700) { // Оранжевый (45 мин)
-                    badge.style.background = '#e68a00'; 
-                    badge.style.color = '#ffffff';
-                } else { // Обычный
-                    badge.style.background = '#f1f7f4';
-                    badge.style.color = '#1a1a1a';
-                }
-
-                // ПРЕОБРАЗОВАНИЕ В ТЕКСТ (чч:мм:сс)
-                let h = Math.floor(window.timeLeft / 3600);
-                let m = Math.floor((window.timeLeft % 3600) / 60);
-                let s = window.timeLeft % 60;
-                timerEl.textContent = `${h}:${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`;
-                
+                updateTimerUI(timerEl, badge, badgeDot);
             }, 1000);
         }
+
+        function updateTimerUI(timerEl, badge, badgeDot) {
+            if (window.timeLeft <= 900) { 
+                badge.style.color = '#e74c3c';
+                if(badgeDot) badgeDot.style.borderColor = '#ff8f8f';
+            } else if (window.timeLeft <= 2700) { 
+                badge.style.color = '#e67e22';
+                if(badgeDot) badgeDot.style.borderColor = '#ffcc80';
+            } else { 
+                badge.style.color = '#1a1a1a';
+                if(badgeDot) badgeDot.style.borderColor = '#a8d5ba';
+            }
+
+            let h = Math.floor(window.timeLeft / 3600);
+            let m = Math.floor((window.timeLeft % 3600) / 60);
+            let s = window.timeLeft % 60;
+            timerEl.textContent = `${h}:${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`;
+        }
+
+        if (isStorageAvailable && localStorage.getItem('ticket_end_time')) {
+            window.addEventListener('DOMContentLoaded', () => {
+                generateTicket();
+            });
+        }
+
+        // --- ЛОГІКА PEPE ---
+        const pepeContainer = document.getElementById('pepe-container');
+        let tapCount = 0;
+        let lastTapTime = 0;
+        let pepeMovingInterval;
+
+        document.getElementById('main-body').addEventListener('click', function(e) {
+            if (!isSetupActive) return;
+            if (e.target.closest('.config-box') || e.target.closest('.start-btn')) return;
+
+            const currentTime = new Date().getTime();
+            if (currentTime - lastTapTime < 500) tapCount++;
+            else tapCount = 1;
+            lastTapTime = currentTime;
+
+            if (tapCount === 15) {
+                activatePepe();
+                tapCount = 0;
+            }
+        });
+
+        function activatePepe() {
+            if (pepeContainer.style.display === 'block') return;
+            pepeContainer.style.display = 'block';
+            setTimeout(() => { pepeContainer.style.bottom = '0px'; }, 10);
+            setTimeout(() => { startPepeMovement(); }, 2500);
+        }
+
+        function startPepeMovement() {
+            pepeContainer.classList.add('moving');
+            const corners = [
+                { top: '20px', left: '20px', bottom: 'auto', right: 'auto' },
+                { top: '20px', left: 'auto', bottom: 'auto', right: '20px' },
+                { top: 'auto', left: 'auto', bottom: '20px', right: '20px' },
+                { top: 'auto', left: '20px', bottom: '20px', right: 'auto' }
+            ];
+            let idx = 0;
+            const move = () => {
+                if (!isSetupActive) return;
+                Object.assign(pepeContainer.style, { top: 'auto', left: 'auto', bottom: 'auto', right: 'auto' });
+                Object.assign(pepeContainer.style, corners[idx]);
+                idx = (idx + 1) % corners.length;
+            };
+            move();
+            pepeMovingInterval = setInterval(move, 2000);
+        }
+
+        function resetPepe() { clearInterval(pepeMovingInterval); pepeContainer.style.display = 'none'; }
     </script>
 </body>
 </html>
